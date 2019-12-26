@@ -78,6 +78,12 @@ namespace PrivateArrhythmia
 			File.Move($"PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip",
 				$"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
 
+			string autosaves = @"*autosave*.lsb";
+			string[] autosaveList = Directory.GetFiles($"{labelTargetLocation.Text}", autosaves);
+
+			foreach (string file in autosaveList)
+				File.Delete(file);
+
 			File.Delete($"{labelTargetLocation.Text}/level.jpg");
 			File.Delete($"{labelTargetLocation.Text}/level.lsb");
 			File.Delete($"{labelTargetLocation.Text}/level.ogg");

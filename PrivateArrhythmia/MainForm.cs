@@ -21,10 +21,17 @@ namespace PrivateArrhythmia
 		{
 			InitializeComponent();
 			logTextBox.AppendText("Initializing Private Arrhythmia V" + Versioning.AppVersion + "\n");
+
 			PaWorkshopLocation = Program.PaWorkshopLocation;
 			SetupCreationTime = Program.SetupCreationTime;
-			labelWorkshop.Text = "Workshop Location: " + PaWorkshopLocation;
-			labelCreation.Text = "Setup Created: " + SetupCreationTime;
+			PaVerFull = Versioning.FullVersionString;
+			PaVerAbbr = Versioning.AbbrVersionString;
+
+			labelWSLocation.Text = PaWorkshopLocation;
+			labelSetup.Text = Convert.ToString(SetupCreationTime);
+			labelPaVerFull.Text = PaVerFull;
+			labelPaVerAbbr.Text = PaVerAbbr;
+
 			logTextBox.AppendText("Initialized Private Arrhythmia V" + Versioning.AppVersion + "\n");
 		}
 

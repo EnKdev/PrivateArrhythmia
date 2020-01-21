@@ -155,6 +155,10 @@
 			this.labelLvlArt = new System.Windows.Forms.Label();
 			this.pictureBoxSrcLvlArt = new System.Windows.Forms.PictureBox();
 			this.labelSrcLevel = new System.Windows.Forms.Label();
+			this.labelTargetSongInfo = new System.Windows.Forms.Label();
+			this.label64 = new System.Windows.Forms.Label();
+			this.labelSrcSongInfo = new System.Windows.Forms.Label();
+			this.label66 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxTargetLvlArt)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSrcLvlArt)).BeginInit();
@@ -354,7 +358,7 @@
 			// labelWorkshopIdTarget
 			// 
 			this.labelWorkshopIdTarget.AutoSize = true;
-			this.labelWorkshopIdTarget.Location = new System.Drawing.Point(1676, 346);
+			this.labelWorkshopIdTarget.Location = new System.Drawing.Point(1019, 188);
 			this.labelWorkshopIdTarget.Name = "labelWorkshopIdTarget";
 			this.labelWorkshopIdTarget.Size = new System.Drawing.Size(106, 21);
 			this.labelWorkshopIdTarget.TabIndex = 110;
@@ -363,7 +367,7 @@
 			// label34
 			// 
 			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(1564, 346);
+			this.label34.Location = new System.Drawing.Point(907, 188);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(106, 21);
 			this.label34.TabIndex = 109;
@@ -372,7 +376,7 @@
 			// labelGameVersionTarget
 			// 
 			this.labelGameVersionTarget.AutoSize = true;
-			this.labelGameVersionTarget.Location = new System.Drawing.Point(1676, 325);
+			this.labelGameVersionTarget.Location = new System.Drawing.Point(1019, 167);
 			this.labelGameVersionTarget.Name = "labelGameVersionTarget";
 			this.labelGameVersionTarget.Size = new System.Drawing.Size(114, 21);
 			this.labelGameVersionTarget.TabIndex = 108;
@@ -381,7 +385,7 @@
 			// label38
 			// 
 			this.label38.AutoSize = true;
-			this.label38.Location = new System.Drawing.Point(1564, 325);
+			this.label38.Location = new System.Drawing.Point(907, 167);
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(114, 21);
 			this.label38.TabIndex = 107;
@@ -390,7 +394,7 @@
 			// labelLvlVersionTarget
 			// 
 			this.labelLvlVersionTarget.AutoSize = true;
-			this.labelLvlVersionTarget.Location = new System.Drawing.Point(1676, 304);
+			this.labelLvlVersionTarget.Location = new System.Drawing.Point(1019, 146);
 			this.labelLvlVersionTarget.Name = "labelLvlVersionTarget";
 			this.labelLvlVersionTarget.Size = new System.Drawing.Size(122, 21);
 			this.labelLvlVersionTarget.TabIndex = 106;
@@ -399,7 +403,7 @@
 			// label42
 			// 
 			this.label42.AutoSize = true;
-			this.label42.Location = new System.Drawing.Point(1564, 304);
+			this.label42.Location = new System.Drawing.Point(907, 146);
 			this.label42.Name = "label42";
 			this.label42.Size = new System.Drawing.Size(74, 21);
 			this.label42.TabIndex = 105;
@@ -408,7 +412,7 @@
 			// labelEditDateTarget
 			// 
 			this.labelEditDateTarget.AutoSize = true;
-			this.labelEditDateTarget.Location = new System.Drawing.Point(1676, 283);
+			this.labelEditDateTarget.Location = new System.Drawing.Point(1019, 125);
 			this.labelEditDateTarget.Name = "labelEditDateTarget";
 			this.labelEditDateTarget.Size = new System.Drawing.Size(90, 21);
 			this.labelEditDateTarget.TabIndex = 104;
@@ -417,7 +421,7 @@
 			// label45
 			// 
 			this.label45.AutoSize = true;
-			this.label45.Location = new System.Drawing.Point(1564, 283);
+			this.label45.Location = new System.Drawing.Point(907, 125);
 			this.label45.Name = "label45";
 			this.label45.Size = new System.Drawing.Size(106, 21);
 			this.label45.TabIndex = 103;
@@ -435,7 +439,7 @@
 			// labelSteamIdTarget
 			// 
 			this.labelSteamIdTarget.AutoSize = true;
-			this.labelSteamIdTarget.Location = new System.Drawing.Point(1676, 240);
+			this.labelSteamIdTarget.Location = new System.Drawing.Point(1019, 93);
 			this.labelSteamIdTarget.Name = "labelSteamIdTarget";
 			this.labelSteamIdTarget.Size = new System.Drawing.Size(82, 21);
 			this.labelSteamIdTarget.TabIndex = 101;
@@ -444,7 +448,7 @@
 			// label48
 			// 
 			this.label48.AutoSize = true;
-			this.label48.Location = new System.Drawing.Point(1564, 240);
+			this.label48.Location = new System.Drawing.Point(907, 93);
 			this.label48.Name = "label48";
 			this.label48.Size = new System.Drawing.Size(82, 21);
 			this.label48.TabIndex = 100;
@@ -498,7 +502,7 @@
 			// labelSteamNameTarget
 			// 
 			this.labelSteamNameTarget.AutoSize = true;
-			this.labelSteamNameTarget.Location = new System.Drawing.Point(1676, 219);
+			this.labelSteamNameTarget.Location = new System.Drawing.Point(1019, 72);
 			this.labelSteamNameTarget.Name = "labelSteamNameTarget";
 			this.labelSteamNameTarget.Size = new System.Drawing.Size(98, 21);
 			this.labelSteamNameTarget.TabIndex = 94;
@@ -507,7 +511,7 @@
 			// label55
 			// 
 			this.label55.AutoSize = true;
-			this.label55.Location = new System.Drawing.Point(1564, 219);
+			this.label55.Location = new System.Drawing.Point(907, 72);
 			this.label55.Name = "label55";
 			this.label55.Size = new System.Drawing.Size(98, 21);
 			this.label55.TabIndex = 93;
@@ -570,7 +574,7 @@
 			// label62
 			// 
 			this.label62.AutoSize = true;
-			this.label62.Location = new System.Drawing.Point(907, 54);
+			this.label62.Location = new System.Drawing.Point(1697, 213);
 			this.label62.Name = "label62";
 			this.label62.Size = new System.Drawing.Size(98, 21);
 			this.label62.TabIndex = 86;
@@ -578,7 +582,7 @@
 			// 
 			// pictureBoxTargetLvlArt
 			// 
-			this.pictureBoxTargetLvlArt.Location = new System.Drawing.Point(911, 78);
+			this.pictureBoxTargetLvlArt.Location = new System.Drawing.Point(1701, 237);
 			this.pictureBoxTargetLvlArt.Name = "pictureBoxTargetLvlArt";
 			this.pictureBoxTargetLvlArt.Size = new System.Drawing.Size(128, 128);
 			this.pictureBoxTargetLvlArt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1074,7 +1078,7 @@
 			// labelWorkshopId
 			// 
 			this.labelWorkshopId.AutoSize = true;
-			this.labelWorkshopId.Location = new System.Drawing.Point(1676, 706);
+			this.labelWorkshopId.Location = new System.Drawing.Point(1019, 553);
 			this.labelWorkshopId.Name = "labelWorkshopId";
 			this.labelWorkshopId.Size = new System.Drawing.Size(106, 21);
 			this.labelWorkshopId.TabIndex = 171;
@@ -1083,7 +1087,7 @@
 			// label43
 			// 
 			this.label43.AutoSize = true;
-			this.label43.Location = new System.Drawing.Point(1564, 706);
+			this.label43.Location = new System.Drawing.Point(907, 553);
 			this.label43.Name = "label43";
 			this.label43.Size = new System.Drawing.Size(106, 21);
 			this.label43.TabIndex = 170;
@@ -1092,7 +1096,7 @@
 			// labelGameVersion
 			// 
 			this.labelGameVersion.AutoSize = true;
-			this.labelGameVersion.Location = new System.Drawing.Point(1676, 685);
+			this.labelGameVersion.Location = new System.Drawing.Point(1019, 532);
 			this.labelGameVersion.Name = "labelGameVersion";
 			this.labelGameVersion.Size = new System.Drawing.Size(114, 21);
 			this.labelGameVersion.TabIndex = 169;
@@ -1101,7 +1105,7 @@
 			// label41
 			// 
 			this.label41.AutoSize = true;
-			this.label41.Location = new System.Drawing.Point(1564, 685);
+			this.label41.Location = new System.Drawing.Point(907, 532);
 			this.label41.Name = "label41";
 			this.label41.Size = new System.Drawing.Size(114, 21);
 			this.label41.TabIndex = 168;
@@ -1110,7 +1114,7 @@
 			// labelLvlVersion
 			// 
 			this.labelLvlVersion.AutoSize = true;
-			this.labelLvlVersion.Location = new System.Drawing.Point(1676, 664);
+			this.labelLvlVersion.Location = new System.Drawing.Point(1019, 511);
 			this.labelLvlVersion.Name = "labelLvlVersion";
 			this.labelLvlVersion.Size = new System.Drawing.Size(122, 21);
 			this.labelLvlVersion.TabIndex = 167;
@@ -1119,7 +1123,7 @@
 			// label39
 			// 
 			this.label39.AutoSize = true;
-			this.label39.Location = new System.Drawing.Point(1564, 664);
+			this.label39.Location = new System.Drawing.Point(907, 511);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(74, 21);
 			this.label39.TabIndex = 166;
@@ -1128,7 +1132,7 @@
 			// labelDateEdit
 			// 
 			this.labelDateEdit.AutoSize = true;
-			this.labelDateEdit.Location = new System.Drawing.Point(1676, 643);
+			this.labelDateEdit.Location = new System.Drawing.Point(1019, 490);
 			this.labelDateEdit.Name = "labelDateEdit";
 			this.labelDateEdit.Size = new System.Drawing.Size(90, 21);
 			this.labelDateEdit.TabIndex = 165;
@@ -1137,7 +1141,7 @@
 			// label37
 			// 
 			this.label37.AutoSize = true;
-			this.label37.Location = new System.Drawing.Point(1564, 643);
+			this.label37.Location = new System.Drawing.Point(907, 490);
 			this.label37.Name = "label37";
 			this.label37.Size = new System.Drawing.Size(106, 21);
 			this.label37.TabIndex = 164;
@@ -1155,7 +1159,7 @@
 			// labelSteamId
 			// 
 			this.labelSteamId.AutoSize = true;
-			this.labelSteamId.Location = new System.Drawing.Point(1676, 599);
+			this.labelSteamId.Location = new System.Drawing.Point(1019, 462);
 			this.labelSteamId.Name = "labelSteamId";
 			this.labelSteamId.Size = new System.Drawing.Size(82, 21);
 			this.labelSteamId.TabIndex = 162;
@@ -1164,7 +1168,7 @@
 			// label35
 			// 
 			this.label35.AutoSize = true;
-			this.label35.Location = new System.Drawing.Point(1564, 599);
+			this.label35.Location = new System.Drawing.Point(907, 462);
 			this.label35.Name = "label35";
 			this.label35.Size = new System.Drawing.Size(82, 21);
 			this.label35.TabIndex = 161;
@@ -1218,7 +1222,7 @@
 			// labelSteamName
 			// 
 			this.labelSteamName.AutoSize = true;
-			this.labelSteamName.Location = new System.Drawing.Point(1676, 578);
+			this.labelSteamName.Location = new System.Drawing.Point(1019, 441);
 			this.labelSteamName.Name = "labelSteamName";
 			this.labelSteamName.Size = new System.Drawing.Size(98, 21);
 			this.labelSteamName.TabIndex = 155;
@@ -1227,7 +1231,7 @@
 			// label27
 			// 
 			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(1564, 578);
+			this.label27.Location = new System.Drawing.Point(907, 441);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(98, 21);
 			this.label27.TabIndex = 154;
@@ -1290,7 +1294,7 @@
 			// labelLvlArt
 			// 
 			this.labelLvlArt.AutoSize = true;
-			this.labelLvlArt.Location = new System.Drawing.Point(907, 421);
+			this.labelLvlArt.Location = new System.Drawing.Point(1697, 570);
 			this.labelLvlArt.Name = "labelLvlArt";
 			this.labelLvlArt.Size = new System.Drawing.Size(98, 21);
 			this.labelLvlArt.TabIndex = 147;
@@ -1298,7 +1302,7 @@
 			// 
 			// pictureBoxSrcLvlArt
 			// 
-			this.pictureBoxSrcLvlArt.Location = new System.Drawing.Point(911, 445);
+			this.pictureBoxSrcLvlArt.Location = new System.Drawing.Point(1701, 594);
 			this.pictureBoxSrcLvlArt.Name = "pictureBoxSrcLvlArt";
 			this.pictureBoxSrcLvlArt.Size = new System.Drawing.Size(128, 128);
 			this.pictureBoxSrcLvlArt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1314,11 +1318,51 @@
 			this.labelSrcLevel.TabIndex = 145;
 			this.labelSrcLevel.Text = "Source Level:";
 			// 
+			// labelTargetSongInfo
+			// 
+			this.labelTargetSongInfo.AutoSize = true;
+			this.labelTargetSongInfo.Location = new System.Drawing.Point(1011, 30);
+			this.labelTargetSongInfo.Name = "labelTargetSongInfo";
+			this.labelTargetSongInfo.Size = new System.Drawing.Size(90, 21);
+			this.labelTargetSongInfo.TabIndex = 174;
+			this.labelTargetSongInfo.Text = "<SongInfo>";
+			// 
+			// label64
+			// 
+			this.label64.AutoSize = true;
+			this.label64.Location = new System.Drawing.Point(907, 30);
+			this.label64.Name = "label64";
+			this.label64.Size = new System.Drawing.Size(106, 21);
+			this.label64.TabIndex = 173;
+			this.label64.Text = "Song Info - ";
+			// 
+			// labelSrcSongInfo
+			// 
+			this.labelSrcSongInfo.AutoSize = true;
+			this.labelSrcSongInfo.Location = new System.Drawing.Point(1019, 410);
+			this.labelSrcSongInfo.Name = "labelSrcSongInfo";
+			this.labelSrcSongInfo.Size = new System.Drawing.Size(90, 21);
+			this.labelSrcSongInfo.TabIndex = 176;
+			this.labelSrcSongInfo.Text = "<SongInfo>";
+			// 
+			// label66
+			// 
+			this.label66.AutoSize = true;
+			this.label66.Location = new System.Drawing.Point(907, 410);
+			this.label66.Name = "label66";
+			this.label66.Size = new System.Drawing.Size(106, 21);
+			this.label66.TabIndex = 175;
+			this.label66.Text = "Song Info - ";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1839, 731);
+			this.Controls.Add(this.labelSrcSongInfo);
+			this.Controls.Add(this.label66);
+			this.Controls.Add(this.labelTargetSongInfo);
+			this.Controls.Add(this.label64);
 			this.Controls.Add(this.labelSrcLocation);
 			this.Controls.Add(this.labelWorkshopId);
 			this.Controls.Add(this.label43);
@@ -1586,6 +1630,10 @@
 		private System.Windows.Forms.Label labelLvlArt;
 		private System.Windows.Forms.PictureBox pictureBoxSrcLvlArt;
 		private System.Windows.Forms.Label labelSrcLevel;
+		private System.Windows.Forms.Label labelTargetSongInfo;
+		private System.Windows.Forms.Label label64;
+		private System.Windows.Forms.Label labelSrcSongInfo;
+		private System.Windows.Forms.Label label66;
 	}
 }
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Ionic.Zip;
 using PrivateArrhythmia.Backend;
+using PrivateArrhythmia.Backend.Audio;
 
 namespace PrivateArrhythmia
 {
@@ -15,7 +16,9 @@ namespace PrivateArrhythmia
 
 		private LsbReader lr = new LsbReader();
 		private LevelArtHelper lah = new LevelArtHelper();
+		private LevelSongHelper lsh = new LevelSongHelper();
 		private LsbWriter lw = new LsbWriter();
+		private FirstTimeSetup fts = new FirstTimeSetup();
 
 		public MainForm()
 		{
@@ -37,134 +40,177 @@ namespace PrivateArrhythmia
 
 		private void buttonLoadLevel_Click(object sender, EventArgs e)
 		{
-			logTextBox.AppendText("Loading editor level...\n");
 
-			string levelArtLocation = lah.GetLevelArtFile(waterMarkTextBoxSrcLevel.Text);
+			if (waterMarkTextBoxSrcLevel.Text == "")
+				MessageBox.Show("Trying to load a level without a file path is deemed unsafe... Just saying.",
+					"Error",
+					MessageBoxButtons.OK);
+			else
+			{
+				logTextBox.AppendText("Loading editor level...\n");
 
-			lr.ReadMetadataFile(waterMarkTextBoxSrcLevel.Text);
+				string levelArtLocation = lah.GetLevelArtFile(waterMarkTextBoxSrcLevel.Text);
+				string levelSongLocation = lsh.GetLevelSongFile(waterMarkTextBoxSrcLevel.Text);
+				string levelTargetSongInfo = SoundUtils.GetOggFileInfo(levelSongLocation);
 
-			pictureBoxSrcLvlArt.Load(levelArtLocation);
+				lr.ReadMetadataFile(waterMarkTextBoxSrcLevel.Text);
 
-			labelSrcLocation.Text = waterMarkTextBoxSrcLevel.Text;
+				pictureBoxSrcLvlArt.Load(levelArtLocation);
 
-			labelArtistName.Text = lr.MA_Name;
-			labelArtistLink.Text = lr.MA_Link;
-			labelArtistLinkType.Text = lr.MA_LinkType.ToString();
+				labelSrcLocation.Text = waterMarkTextBoxSrcLevel.Text;
+				labelSrcSongInfo.Text = levelTargetSongInfo;
 
-			labelSteamName.Text = lr.MC_SteamName;
-			labelSteamId.Text = lr.MC_SteamId;
+				labelArtistName.Text = lr.MA_Name;
+				labelArtistLink.Text = lr.MA_Link;
+				labelArtistLinkType.Text = lr.MA_LinkType.ToString();
 
-			labelSongTitle.Text = lr.MS_Title;
-			labelDiff.Text = lr.MS_Difficulty;
-			labelBpm.Text = lr.MS_Bpm;
+				labelSteamName.Text = lr.MC_SteamName;
+				labelSteamId.Text = lr.MC_SteamId;
 
-			labelDateEdit.Text = lr.MB_DateEdited;
-			labelLvlVersion.Text = lr.MB_VersionNumber;
-			labelGameVersion.Text = lr.MB_GameVersion;
-			labelWorkshopId.Text = lr.MB_WorkshopId;
+				labelSongTitle.Text = lr.MS_Title;
+				labelDiff.Text = lr.MS_Difficulty;
+				labelBpm.Text = lr.MS_Bpm;
 
-			logTextBox.AppendText("Editor level loaded\n");
+				labelDateEdit.Text = lr.MB_DateEdited;
+				labelLvlVersion.Text = lr.MB_VersionNumber;
+				labelGameVersion.Text = lr.MB_GameVersion;
+				labelWorkshopId.Text = lr.MB_WorkshopId;
+
+				logTextBox.AppendText("Editor level loaded\n");
+			}
 		}
 
 		private void buttonTransferLvl_Click(object sender, EventArgs e)
 		{
-			logTextBox.AppendText("Trying to transfer editor level to target location...\n");
-
-			pictureBoxTargetLvlArt.Dispose();
-
 			if (waterMarkTextBoxTargetLvl.Text == "")
-				MessageBox.Show("Can't transfer level to non-existant target location", "Error", MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-
-			using (var zip = new ZipFile())
+				MessageBox.Show("Trying to transfer a level without a file path is deemed unsafe... Just saying.",
+					"Error",
+					MessageBoxButtons.OK);
+			else
 			{
-				zip.AddDirectory($"{waterMarkTextBoxSrcLevel.Text}");
-				zip.Save($"PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
+
+				logTextBox.AppendText("Trying to transfer editor level to target location...\n");
+
+				pictureBoxTargetLvlArt.Dispose();
+
+				if (waterMarkTextBoxTargetLvl.Text == "")
+					MessageBox.Show("Can't transfer level to non-existant target location", "Error",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
+
+				using (var zip = new ZipFile())
+				{
+					zip.AddDirectory($"{waterMarkTextBoxSrcLevel.Text}");
+					zip.Save($"PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
+				}
+
+				File.Move($"PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip",
+					$"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
+
+				string autosaves = @"*autosave*.lsb";
+				string[] autosaveList = Directory.GetFiles($"{labelTargetLocation.Text}", autosaves);
+
+				foreach (string file in autosaveList)
+					File.Delete(file);
+
+				File.Delete($"{labelTargetLocation.Text}/level.jpg");
+				File.Delete($"{labelTargetLocation.Text}/level.lsb");
+				File.Delete($"{labelTargetLocation.Text}/level.ogg");
+				File.Delete($"{labelTargetLocation.Text}/metadata.lsb");
+
+				ZipFile zip1 =
+					ZipFile.Read(
+						$"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
+
+				foreach (ZipEntry ze in zip1)
+					ze.Extract($"{labelTargetLocation.Text}", ExtractExistingFileAction.OverwriteSilently);
+
+				zip1.Dispose();
+
+				File.Delete($"{labelTargetLocation.Text}/metadata.lsb");
+				WriteModifiedMetadataFile();
+				lr.DisposeLsbReader();
+
+				if (!Directory.Exists($"{PaWorkshopLocation}/ReadyToShare"))
+					Directory.CreateDirectory($"{PaWorkshopLocation}/ReadyToShare");
+
+				File.Move(
+					$"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip",
+					$"{PaWorkshopLocation}/ReadyToShare/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
+
+				logTextBox.AppendText(
+					$"Transfer complete. Sharable private level archive found in {PaWorkshopLocation}\\ReadyToShare\n");
 			}
-
-			File.Move($"PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip",
-				$"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
-
-			string autosaves = @"*autosave*.lsb";
-			string[] autosaveList = Directory.GetFiles($"{labelTargetLocation.Text}", autosaves);
-
-			foreach (string file in autosaveList)
-				File.Delete(file);
-
-			File.Delete($"{labelTargetLocation.Text}/level.jpg");
-			File.Delete($"{labelTargetLocation.Text}/level.lsb");
-			File.Delete($"{labelTargetLocation.Text}/level.ogg");
-			File.Delete($"{labelTargetLocation.Text}/metadata.lsb");
-
-			ZipFile zip1 = ZipFile.Read($"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
-
-			foreach (ZipEntry ze in zip1)
-				ze.Extract($"{labelTargetLocation.Text}", ExtractExistingFileAction.OverwriteSilently);
-
-			zip1.Dispose();
-
-			File.Delete($"{labelTargetLocation.Text}/metadata.lsb");
-			WriteModifiedMetadataFile();
-			lr.DisposeLsbReader();
-
-			if (!Directory.Exists($"{PaWorkshopLocation}/ReadyToShare"))
-				Directory.CreateDirectory($"{PaWorkshopLocation}/ReadyToShare");
-
-			File.Move($"{labelTargetLocation.Text}/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip", $"{PaWorkshopLocation}/ReadyToShare/PrivateLevel_{labelSongTitle.Text}_{labelArtistName.Text}_{labelSteamName.Text}.zip");
-
-			logTextBox.AppendText($"Transfer complete. Sharable private level archive found in {PaWorkshopLocation}\\ReadyToShare\n");
 		}
 
 		private void buttonLoadLvlTarget_Click(object sender, EventArgs e)
 		{
-			logTextBox.AppendText("Loading workshop level...\n");
+			if (waterMarkTextBoxTargetLvl.Text == "")
+				MessageBox.Show("Trying to load a level without a file path is deemed unsafe... Just saying.",
+					"Error",
+					MessageBoxButtons.OK);
+			else
+			{
 
-			string levelArtLocation = lah.GetLevelArtFile(waterMarkTextBoxTargetLvl.Text);
+				logTextBox.AppendText("Loading workshop level...\n");
 
-			lr.ReadMetadataFile(waterMarkTextBoxTargetLvl.Text);
+				string levelArtLocation = lah.GetLevelArtFile(waterMarkTextBoxTargetLvl.Text);
+				string levelSongLocation = lsh.GetLevelSongFile(waterMarkTextBoxTargetLvl.Text);
+				string levelTargetSongInfo = SoundUtils.GetOggFileInfo(levelSongLocation);
 
-			pictureBoxTargetLvlArt.Load(levelArtLocation);
+				lr.ReadMetadataFile(waterMarkTextBoxTargetLvl.Text);
 
-			labelTargetLocation.Text = waterMarkTextBoxTargetLvl.Text;
+				pictureBoxTargetLvlArt.Load(levelArtLocation);
 
-			labelArtistNameTarget.Text = lr.MA_Name;
-			labelArtistLinkTarget.Text = lr.MA_Link;
-			labelArtistLinkTypeTarget.Text = lr.MA_LinkType.ToString();
+				labelTargetLocation.Text = waterMarkTextBoxTargetLvl.Text;
+				labelTargetSongInfo.Text = levelTargetSongInfo;
 
-			labelSteamNameTarget.Text = lr.MC_SteamName;
-			labelSteamIdTarget.Text = lr.MC_SteamId;
+				labelArtistNameTarget.Text = lr.MA_Name;
+				labelArtistLinkTarget.Text = lr.MA_Link;
+				labelArtistLinkTypeTarget.Text = lr.MA_LinkType.ToString();
 
-			labelSongTarget.Text = lr.MS_Title;
-			labelDiffTarget.Text = lr.MS_Difficulty;
-			labelBpmTarget.Text = lr.MS_Bpm;
+				labelSteamNameTarget.Text = lr.MC_SteamName;
+				labelSteamIdTarget.Text = lr.MC_SteamId;
 
-			labelEditDateTarget.Text = lr.MB_DateEdited;
-			labelLvlVersionTarget.Text = lr.MB_VersionNumber;
-			labelGameVersionTarget.Text = lr.MB_GameVersion;
-			labelWorkshopIdTarget.Text = lr.MB_WorkshopId;
+				labelSongTarget.Text = lr.MS_Title;
+				labelDiffTarget.Text = lr.MS_Difficulty;
+				labelBpmTarget.Text = lr.MS_Bpm;
 
-			logTextBox.AppendText("Workshop level loaded.\n");
+				labelEditDateTarget.Text = lr.MB_DateEdited;
+				labelLvlVersionTarget.Text = lr.MB_VersionNumber;
+				labelGameVersionTarget.Text = lr.MB_GameVersion;
+				labelWorkshopIdTarget.Text = lr.MB_WorkshopId;
+
+				logTextBox.AppendText("Workshop level loaded.\n");
+			}
 		}
 
 		private void buttonLvlBackup_Click(object sender, EventArgs e)
 		{
-			logTextBox.AppendText("Backing up workshop level\n");
-
-			if (!Directory.Exists($"{PaWorkshopLocation}/Backup"))
-				Directory.CreateDirectory($"{PaWorkshopLocation}/Backup");
-
-			using (var zip = new ZipFile())
+			if (waterMarkTextBoxSrcLevel.Text == "")
+				MessageBox.Show("Trying to backup a level without a file path is deemed unsafe... Just saying.",
+					"Error",
+					MessageBoxButtons.OK);
+			else
 			{
-				zip.AddDirectory($"{waterMarkTextBoxTargetLvl.Text}");
-				zip.Save($"Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip");
+				logTextBox.AppendText("Backing up workshop level\n");
+
+				if (!Directory.Exists($"{PaWorkshopLocation}/Backup"))
+					Directory.CreateDirectory($"{PaWorkshopLocation}/Backup");
+
+				using (var zip = new ZipFile())
+				{
+					zip.AddDirectory($"{waterMarkTextBoxTargetLvl.Text}");
+					zip.Save($"Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip");
+				}
+
+				File.Move($"./Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip",
+					$"{PaWorkshopLocation}/Backup/Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip");
+
+				File.Delete($"./Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip");
+
+				logTextBox.AppendText($"Level backup successful. Backup located at: {PaWorkshopLocation}\\Backup\n");
 			}
-
-			File.Move($"./Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip",
-				$"{PaWorkshopLocation}/Backup/Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip");
-
-			File.Delete($"./Backup_{labelWorkshopIdTarget.Text}_{labelSongTarget.Text}.zip");
-
-			logTextBox.AppendText($"Level backup successful. Backup located at: {PaWorkshopLocation}\\Backup\n");
 		}
 
 		private void WriteModifiedMetadataFile()

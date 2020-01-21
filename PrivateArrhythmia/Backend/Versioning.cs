@@ -2,11 +2,11 @@
 {
 	public class Versioning
 	{
-		public static string AppVersion = "1.0.2";
+		public static string AppVersion = "1.1.0";
 		private static string AppAbbreviation = "PA";
-		private static string AppVersionNumber = "102";
-		private static string BuildRevisionFull = "2812192125";
-		private static string BuildRevisionAbbr = "281219";
+		private static string AppVersionNumber = "110";
+		private static string BuildRevisionFull = "2101201913";
+		private static string BuildRevisionAbbr = "210120";
 
 		private static char FullVerSeparator = '_';
 		private static char AbbrVerSeparator = ':';

@@ -1,4 +1,7 @@
 # Private Arrhythmia
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb6f1ff60dfc46f6954dc32a4a23f139)](https://app.codacy.com/manual/EnKdev/PrivateArrhythmia?utm_source=github.com&utm_medium=referral&utm_content=EnKdev/PrivateArrhythmia&utm_campaign=Badge_Grade_Dashboard)
+
 A tool to load private levels from the editor into the arcade of Project Arrhytmia
 
 --------------

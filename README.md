@@ -5,7 +5,7 @@
 A tool to load private levels from the editor into the arcade of Project Arrhytmia
 
 --------------
-## Current Version: V1.0.2
+## Current Version: V1.1.0
 --------------
 ### Any bugs / issues are reported [here](https://github.com/EnKdev/PrivateArrhythmia/issues)
 -------------------
